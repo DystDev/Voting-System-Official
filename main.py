@@ -45,7 +45,7 @@ def setup():
   password = getpass.getpass(prompt='Enter password for admin panel: ', stream=None)
   os.system("clear")
 
-
+os.system('clear')
 setup()
 
 def vote(vote):
