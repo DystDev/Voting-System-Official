@@ -1,8 +1,29 @@
+# Rowan Marshall
+# 4G
+# DJH - Mr Haxton
+
+# 4th FORM PROJECT - The Election Booth Problem
+
+
+# Write a program in Python on Repl that:
+# Allows voters to enter either A, B or C.
+# Keeps track of how many times each candidate has been voted for.
+# As soon as one person has finished voting, allows the next person to vote.
+# At any point allows the official to type in “END”, 
+# which will print out the number of votes for each candidate and the total number of votes overall.
+
+
+# TODO:
+# - System Reset after finish
+# - Catch duplicate candidates
+# - Undo method
 
 import os
 import time
 import csv
 import getpass
+import ast
+
 
 results = {}
 votersDict = {}
@@ -107,6 +128,7 @@ def adminpanel():
   returnToApp = False
   os.system("clear")
   print("-- VOTING SYSTEM ADMIN PANEL -- \n")
+  print("Warning! Some functions may be missing. Please increase window size or refer to extraFunctions in code.")
   while returnToApp != True:
     adminFunc = input("Please choose a function from " + extraFunctions + ": ").lower()
     if adminFunc != "return" and adminFunc != "end":
@@ -210,11 +232,12 @@ def load():
   with open("days.txt", "r") as file:
     info = csv.reader(file)
     for row in info:
-      currentDay = row[0]
-      currentDayResults = row[1]
-      daysDictHandler = row[2]
+      currentDay = int(row[0])
+      currentDayResults = ast.literal_eval(row[1])
+      daysDictHandler = ast.literal_eval(row[2])
     file.close()
     info = ""
+  print(daysDictHandler)
   print("Completed.")
 
 def newday():
@@ -227,6 +250,9 @@ def newday():
   
 
 def days():
+  global daysDictHandler
+  global currentDayResults
+  global currentDay
   daysDictHandler["Day " + str(currentDay)] = currentDayResults
   dayPrintable = ""
   daysList = list(daysDictHandler.items())
